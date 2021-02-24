@@ -37,7 +37,14 @@ const octoql = graphql.defaults({
         );
 
         // Deliberately not taking advantage of async in order to enforce ordering.
-        for (const branchPattern of config.branches) {
+        for (const branchPattern in config.branches) {
+
+            const ruleName = config.branches[branchPattern];
+            const restictions = {
+                repositoryId: repository.id,
+                pattern: branchPattern,
+                ...config.rules[ruleName]
+            }
 
             // Create the protection rule.
             await octoql(
@@ -49,20 +56,9 @@ const octoql = graphql.defaults({
                             }
                         }
                     }
-                    `,
+                `,
                 {
-                    input: {
-                        repositoryId: repository.id,
-                        pattern: branchPattern,
-
-                        requiresApprovingReviews: true,     // Require pull request reviews before merging.
-                        requiredApprovingReviewCount: 1,    // At least one review.
-                        requiresStatusChecks: true,         // Status checks must pass.
-                        requiresStrictStatusChecks: true,   // Branches must be up to date before merging.
-                        isAdminEnforced: false,             // Don't enforce the above rules for admins.
-                        restrictsPushes: true,              // Restrict who can push to matching branches.
-                        allowsDeletions: true               // Allow deletions.
-                    }
+                    input: restictions
                 }
             );
         }
