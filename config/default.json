@@ -1,0 +1,14 @@
+{
+    "githubConnection": {
+        "orgname": "nobody",
+        "apikey": "12345"
+    },
+    "branches": [
+        "master",
+        "main",
+        "develop",
+        "feature/*",
+        "hotfix/*",
+        "release/*"
+    ]
+}
