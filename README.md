@@ -1,7 +1,5 @@
 # Set up branch protection rules for an existing repository.
 
-This code is now part of [NCIOCPL/cgdp-management-tools](https://github.com/NCIOCPL/cgdp-management-tools).
-
 ## Run
 
     node index.js <REPO_NAME>
